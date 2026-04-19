@@ -18,10 +18,11 @@ const userSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    unlockAccount:{
-        type:Date,
-        default:undefined
+    totalAttempts:{
+        type:Number,
+        default:0
     }
+
 },{timestamps:true});
 
 export const userModel = mongoose.model("user",userSchema);
