@@ -1,6 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Outfit:wght@100..900&display=swap");
+
+* {
+    font-family: "Outfit", "Inter";
+}
+
+.customBack{
+    background-image: linear-gradient(to right top, #01142d, hsl(209, 91%, 13%), #063354, #074468, #06567c);
+}
+
 @theme{
     --color-primary: #324b4f;
     --color-secondary: #e6f4f1;
 }
 
 @import "tailwindcss"
+
