@@ -1,8 +1,9 @@
 import { MenuIcon } from 'lucide-react'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Nav = () => {
+    const navigate = useNavigate()
     const [menuOpen,setMenuOpen] = useState(false)
   return (
     <div>
@@ -14,7 +15,7 @@ const Nav = () => {
                 <Link to={"/about"}>About</Link>
                 <Link to={"/contact"}>Contact</Link>
             </div>
-            <button className='bg-secondary rounded text-black px-2 py-1 '>Get_Started</button>
+            <button onClick={()=>navigate('/login')} className='bg-secondary rounded text-black px-2 py-1 '>Get_Started</button>
         </div>
 
          {/* mobile */}
@@ -30,7 +31,7 @@ const Nav = () => {
                 <Link to={"/"}>Home</Link>
                 <Link to={"/"}>About</Link>
                 <Link to={"/"}>Contact</Link>
-                <button  className='bg-primary text-white rounded  px-2 py-1 roundd'>Get_Started</button>
+                <button  onClick={()=>navigate('/login')} className='bg-primary text-white rounded  px-2 py-1 roundd'>Get_Started</button>
 
             </div>
             </>
