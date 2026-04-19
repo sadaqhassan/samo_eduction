@@ -1,6 +1,7 @@
 import React from "react";
 import { CircleCheck, CircleCheckIcon  } from 'lucide-react'
 import Nav from "../Components/Nav";
+import Footer from "../Components/Footer";
 
 const About = () => {
         const features = [
@@ -31,9 +32,12 @@ const About = () => {
             }
             <button className='bg-primary text-white mt-4 rounded text-black px-2 py-1 roundd'>Get_Started</button>
             </div>
-
         </div>
         </div>
+        
+    </div>
+    <div className="mx-50 mb-10">
+        <Footer/>
     </div>
     </>
   );
