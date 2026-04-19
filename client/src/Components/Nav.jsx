@@ -11,8 +11,8 @@ const Nav = () => {
             <p>Logo</p>
             <div className='flex space-x-4'>
                 <Link to={"/"}>Home</Link>
-                <Link to={"/"}>About</Link>
-                <Link to={"/"}>Contact</Link>
+                <Link to={"/about"}>About</Link>
+                <Link to={"/contact"}>Contact</Link>
             </div>
             <button className='bg-secondary rounded text-black px-2 py-1 '>Get_Started</button>
         </div>
