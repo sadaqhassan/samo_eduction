@@ -4,7 +4,7 @@ import Landing from '../Components/Landing'
 
 const Home = () => {
   return (
-    <div className='md:mx-40'>
+    <div className='md:mx-50'>
       <Nav/>
       <Landing/>
     </div>
