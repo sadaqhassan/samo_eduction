@@ -1,3 +1,5 @@
+import { useReducer } from "react"
+import { GenerateToken } from "../Configs/Helper.js"
 import { userModel } from "../Models/user.model.js"
 import bcrypt from 'bcryptjs'
 
@@ -37,9 +39,44 @@ export const LoginApi = async(req,res)=>{
 
         await user.save()
 
-        return res.status(200).json({success:true,message:"Welcome back "+user.name})
+        const token = GenerateToken(user._id,user.role);
+
+        return res.status(200).cookie("accessToken",token,{httpOnly:true}).json({success:true,message:"Welcome back "+user.name})
 
     } catch (error) {
-        res.status(500).json({success:false,message:"server error"})
+        console.log(error.message)
+        return res.status(500).json({success:false,message:"server error"})
+    }
+}
+
+// createTeacher
+export const createUserApi = async (req,res) => {
+    const {role,name,email,password} = req.body
+    const {role} = req.role
+
+    if(role !== "admin")return res.status(401).json({success:false,message:"You can't create Teacher"})
+    try {
+
+        const teacher = userModel.findOne({email});
+
+        if(teacher){
+            return res.status(400).json({success:false,message:"this teacher is exist"})
+        }
+
+        const hashedPassword = await bcrypt.hash(hashedPassword,10)
+
+        const newUser = await new userModel({
+            name,
+            email,
+            password:hashedPassword,
+            role
+        });
+
+        await user.save();
+
+        return res.status(200).json({success:true,message:"Welcome back "+user.name});
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({success:false,message:"server error"})
     }
 }
