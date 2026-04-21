@@ -1,18 +1,22 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    email:{
+    name:{
         type:String,
         required:true
     },
     email:{
+        type:String,
+        required:true
+    },
+    password:{
         type:String,
         required:true
     },
     role:{
         type:String,
         required:true,
-        enum:["admin","teacher"]
+        enum:["admin","teacher","student"]
     },
     lockAccount:{
         type:Boolean,
