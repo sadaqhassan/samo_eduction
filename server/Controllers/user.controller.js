@@ -11,7 +11,6 @@ export const LoginApi = async(req,res)=>{
         }
 
         const user = await userModel.findOne({email});
-
         
         if(!user){
             return res.status(401).json({success:false,message:"incorrect email or password"})
@@ -24,7 +23,6 @@ export const LoginApi = async(req,res)=>{
         const isCompare = await bcrypt.compare(password,user.password);
 
         if(!isCompare){
-
             user.totalAttempts = (user.totalAttempts||0)+1
             if(user.totalAttempts >=5){
             user.lockAccount = true
