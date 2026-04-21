@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
 import { connectiondDb } from './Configs/conn.js';
+import { createSuperAdmin } from "../Controllers/seed.controller.js";
 
 export const configApp = async (app) => {
     dotenv.config()
@@ -12,5 +13,6 @@ export const configApp = async (app) => {
     connectiondDb();
     app.listen(process.env.PORT,()=>{
     console.log("server is running on http://localhost:"+process.env.PORT)
+    createSuperAdmin();
 });
 }
