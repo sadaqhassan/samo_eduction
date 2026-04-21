@@ -21,9 +21,9 @@ export const createSuperAdmin = async (req,res) => {
 
         await newAdmin.save();
 
-        res.cookie("accessToken",GenerateToken(newAdmin._id,newAdmin.role)).status(201).json({success:true,message:"Admin created"});
+        res.cookie("accessToken",GenerateToken(isExist._id,isExist.role)).status(201).json({success:true,message:"Admin created"});
 
     } catch (error) {
-        
+        res.status(500).json({success:false,message:"server error"})
     }
 } 
