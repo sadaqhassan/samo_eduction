@@ -1,7 +1,7 @@
-import { useReducer } from "react"
 import { GenerateToken } from "../Configs/Helper.js"
 import { userModel } from "../Models/user.model.js"
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 //register
 export const LoginApi = async(req,res)=>{
@@ -39,7 +39,7 @@ export const LoginApi = async(req,res)=>{
 
         await user.save()
 
-        const token = GenerateToken(user._id,user.role);
+        const token = jwt.sign({id:user._id,role:user.role},process.env.JWT_SECRET,{expiresIn:"7d"});
 
         return res.status(200).cookie("accessToken",token,{httpOnly:true}).json({success:true,message:"Welcome back "+user.name})
 
@@ -52,18 +52,16 @@ export const LoginApi = async(req,res)=>{
 // createTeacher
 export const createUserApi = async (req,res) => {
     const {role,name,email,password} = req.body
-    const {role} = req.role
 
-    if(role !== "admin")return res.status(401).json({success:false,message:"You can't create Teacher"})
     try {
 
-        const teacher = userModel.findOne({email});
+        const user = await userModel.findOne({email});
 
-        if(teacher){
-            return res.status(400).json({success:false,message:"this teacher is exist"})
+        if(user){
+            return res.status(400).json({success:false,message:"this user is exist"})
         }
 
-        const hashedPassword = await bcrypt.hash(hashedPassword,10)
+        const hashedPassword = await bcrypt.hash(password,10)
 
         const newUser = await new userModel({
             name,
@@ -72,9 +70,9 @@ export const createUserApi = async (req,res) => {
             role
         });
 
-        await user.save();
+        await newUser.save();
 
-        return res.status(200).json({success:true,message:"Welcome back "+user.name});
+        return res.status(200).json({success:true,message:"register successfully "+newUser.name});
     } catch (error) {
         console.log(error.message)
         return res.status(500).json({success:false,message:"server error"})
